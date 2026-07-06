@@ -365,68 +365,105 @@
       color: var(--white);
     }
 
-    /* ── WORK ── */
-    .work {
-      padding: 100px 60px;
-    }
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 20px;
-    }
-    .video-card {
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    .video-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .video-card:hover {
-      border-color: rgba(85,72,217,0.45);
-      box-shadow: 0 20px 64px rgba(61,53,160,0.28);
-      transform: translateY(-6px);
-    }
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      background: var(--surface);
-    }
-    .video-wrapper iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-    .video-meta {
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--surface);
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-    .video-label {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--purple-mist);
-    }
-    .video-tag {
-      font-size: 11px;
-      font-weight: 400;
-      color: var(--gray-dim);
-      font-family: 'Syne', sans-serif;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+     /* ── WORK ── */
+.work {
+  padding: 100px 60px;
+}
+
+.section-subtitle {
+  max-width: 520px;
+  margin-top: -36px;
+  margin-bottom: 56px;
+  color: var(--gray-light);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.video-card {
+  overflow: hidden;
+  background: rgba(13, 12, 31, 0.72);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.video-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.video-card:hover {
+  border-color: rgba(139,130,216,0.45);
+  box-shadow: 0 24px 70px rgba(61,53,160,0.26);
+  transform: translateY(-6px);
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-info {
+  padding: 22px 22px 24px;
+  background: linear-gradient(180deg, rgba(13,12,31,0.96), rgba(7,7,15,0.98));
+}
+
+.video-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.video-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--purple-mist);
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.video-count {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  color: var(--gray-dim);
+  letter-spacing: 0.12em;
+}
+
+.video-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.video-desc {
+  color: var(--gray-light);
+  font-size: 14px;
+  line-height: 1.65;
+}
 
     /* ── SERVICES ── */
     .services {
@@ -652,39 +689,130 @@
 <section class="work" id="work">
   <div class="section-header">
     <span class="s-num">01</span>
-    <h2 class="s-title">PORTFOLIO</h2>
+    <h2 class="s-title">SELECTED WORK</h2>
   </div>
+
+  <p class="section-subtitle">
+    Motion design crafted for SaaS, AI, and digital products.
+  </p>
+
   <div class="video-grid">
+
     <div class="video-card reveal">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/Qfm6gzGWC9Y" title="Project 01" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <iframe src="https://www.youtube.com/embed/HBkx2RbTzqc" title="Poliversia" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
       </div>
-      <div class="video-meta">
-        <span class="video-label">AI Chrome Extension</span>
-        <span class="video-tag">Explainer Video</span>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">AI CRM</span>
+          <span class="video-count">01</span>
+        </div>
+        <h3 class="video-label">Poliversia</h3>
+        <p class="video-desc">A product demo showing how AI-powered CRM workflows can feel clear, fast, and easy to understand.</p>
       </div>
     </div>
+
+    <div class="video-card reveal" style="transition-delay:0.05s">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/Qfm6gzGWC9Y" title="GetTheGist" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Browser Extension</span>
+          <span class="video-count">02</span>
+        </div>
+        <h3 class="video-label">GetTheGist</h3>
+        <p class="video-desc">An explainer video for an AI browser extension that turns web content into quick, useful summaries.</p>
+      </div>
+    </div>
+
     <div class="video-card reveal" style="transition-delay:0.1s">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/p2UVSuqlhdg" title="Project 02" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <iframe src="https://www.youtube.com/embed/k-MUQJH-hkg" title="Designverse" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
       </div>
-      <div class="video-meta">
-        <span class="video-label">AI-Powered Assistant and Search Engine</span>
-        <span class="video-tag">Product Demo</span>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Analytics Dashboard</span>
+          <span class="video-count">03</span>
+        </div>
+        <h3 class="video-label">Designverse</h3>
+        <p class="video-desc">A high-paced dashboard video designed to make complex analytics feel sharp, dynamic, and instantly readable.</p>
       </div>
     </div>
+
+    <div class="video-card reveal" style="transition-delay:0.15s">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/aKRDkW3DSTk" title="Scoutly" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Marketplace</span>
+          <span class="video-count">04</span>
+        </div>
+        <h3 class="video-label">Scoutly</h3>
+        <p class="video-desc">A marketplace app video built to explain the user journey and value exchange through clean motion storytelling.</p>
+      </div>
+    </div>
+
     <div class="video-card reveal" style="transition-delay:0.2s">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/HBkx2RbTzqc" title="Project 03" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <iframe src="https://www.youtube.com/embed/WClPpwF1BNU" title="SimpleSign" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
       </div>
-      <div class="video-meta">
-        <span class="video-label">Automation Platform</span>
-        <span class="video-tag">Feature Launch</span>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Project Management</span>
+          <span class="video-count">05</span>
+        </div>
+        <h3 class="video-label">SimpleSign</h3>
+        <p class="video-desc">A SaaS product demo simplifying document signing, file management, and team collaboration into one clear flow.</p>
       </div>
     </div>
+
+    <div class="video-card reveal" style="transition-delay:0.25s">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/p2UVSuqlhdg" title="Collato" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">AI Knowledge</span>
+          <span class="video-count">06</span>
+        </div>
+        <h3 class="video-label">Collato</h3>
+        <p class="video-desc">An AI assistant and search demo focused on helping teams find information faster across their workspace.</p>
+      </div>
+    </div>
+
+    <div class="video-card reveal" style="transition-delay:0.3s">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/XHUmJKeBFWo" title="TryHackMe" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Cybersecurity AI</span>
+          <span class="video-count">07</span>
+        </div>
+        <h3 class="video-label">TryHackMe</h3>
+        <p class="video-desc">A product showcase presenting an AI research assistant for cybersecurity learning and technical investigation.</p>
+      </div>
+    </div>
+
+    <div class="video-card reveal" style="transition-delay:0.35s">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/R90HKsKc8Sw" title="Filmd" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-topline">
+          <span class="video-tag">Mobile Onboarding</span>
+          <span class="video-count">08</span>
+        </div>
+        <h3 class="video-label">Filmd</h3>
+        <p class="video-desc">A mobile onboarding experience designed to introduce the product clearly and guide users into the app faster.</p>
+      </div>
+    </div>
+
   </div>
 </section>
-
+  
 <!-- SERVICES -->
 <section class="services" id="services">
   <div class="section-header">
