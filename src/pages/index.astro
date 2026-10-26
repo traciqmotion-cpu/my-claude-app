@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import WorkCard from '../components/WorkCard.astro';
+import TrustpilotSlot from '../components/TrustpilotSlot.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { bySlug } from '../data/projects';
+import { testimonial } from '../data/testimonial';
+import { site } from '../data/site';
+
+const featured = [bySlug('bookkeepa-explainer'), bySlug('getthegist')];
+const services = [
+  ['Launch films', 'Fast, confident films that announce a product or a new feature.'],
+  ['Explainers and demos', 'Clear walkthroughs that make a complex product easy to grasp.'],
+  ['UI animation', 'Your interface in motion, built from your real screens.'],
+  ['Monthly video', 'A steady stream of launches, feature updates, and ad cuts.'],
+];
+const showProof = (testimonial.enabled && testimonial.quote) || site.trustpilot.enabled;
+const org = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: 'https://traciqmotion.com',
+  logo: 'https://traciqmotion.com/favicon-32.png',
+  email: site.email,
+  description: site.description,
+});
+---
+<BaseLayout title={site.name}>
+  <script type="application/ld+json" slot="head" set:html={org} />
+
+  <Section>
+    <div class="hero-split">
+      <div class="stack gap-lg">
+        <p class="label">Motion studio for SaaS and AI</p>
+        <h1 class="display hero">Make it clear.<br /><span class="accent">Make it move.</span></h1>
+        <p class="body-lg">Launch films, explainers, and UI animation for teams with something new to show.</p>
+        <div class="actions">
+          <Button href="/contact#book">Book a call</Button>
+          <Button href="/work/" variant="outline">See the work</Button>
+        </div>
+      </div>
+      <div class="reel">
+        <video data-loop muted loop playsinline preload="metadata" poster="/media/bookkeepa-promo-poster.jpg" aria-label="Traciq Motion showreel loop">
+          <source src="/media/bookkeepa-promo-card.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="surface" class="proof">
+    <div class="cols cols-3 wide-gap">
+      <div class="item"><p class="label">Monthly retainers</p><p>Ongoing video for growing product brands.</p></div>
+      <div class="item"><p class="label">Institutional work</p><p>Animation presented at ISDBI seminars.</p></div>
+      <div class="item"><p class="label">Focus</p><p>SaaS and AI products, from launch to feature updates.</p></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="stack gap-2xl">
+      <SectionHeader label="Selected work" title="Launches, explainers, and product motion." />
+      <div class="grid-work">
+        {featured.map((p) => <WorkCard project={p} />)}
+      </div>
+      <div><Button href="/work/" variant="outline">View all work</Button></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="stack gap-2xl">
+      <SectionHeader label="What we make" title="Four ways we help you launch." />
+      <div class="cols cols-4">
+        {services.map(([t, d], i) => (
+          <div class="stack gap-sm">
+            <p class="step-num">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="display title">{t}</h3>
+            <p>{d}</p>
+          </div>
+        ))}
+      </div>
+      <div><Button href="/services/" variant="outline">All services</Button></div>
+    </div>
+  </Section>
+
+  <Section bg="brand">
+    <div class="split">
+      <div class="stack gap-md">
+        <p class="label">Retainer</p>
+        <h2 class="display headline">Video every month, not once.</h2>
+        <p class="body-lg">Keep your product story fresh with a steady stream of launches, feature updates, and ad cuts.</p>
+      </div>
+      <div class="actions" style="justify-content:flex-end"><Button href="/retainer/" variant="spark">Talk about a retainer</Button></div>
+    </div>
+  </Section>
+
+  {showProof && (
+    <Section bg="surface">
+      <div class="stack gap-lg">
+        <p class="label">Client words</p>
+        {testimonial.enabled && testimonial.quote && (
+          <figure style="margin:0" class="stack gap-md">
+            <blockquote class="display headline" style="margin:0">“{testimonial.quote}”</blockquote>
+            <figcaption>{testimonial.name}{testimonial.role ? `, ${testimonial.role}` : ''}</figcaption>
+          </figure>
+        )}
+        <TrustpilotSlot />
+      </div>
+    </Section>
+  )}
+
+  <CtaBand bg="page" title="Ready to make it click?" sub="Tell us what you’re launching." />
+</BaseLayout>

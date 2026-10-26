@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const principles = [
+  ['Clarity first', 'Every film earns its place by making something easier to understand.'],
+  ['Built from real screens', 'We animate your actual product, so what viewers see is what they get.'],
+  ['Feedback early', 'Storyboards and first drafts come early, so changes are quick and cheap.'],
+];
+---
+<BaseLayout title="About" description="Traciq Motion makes video for SaaS and AI teams, from launches and explainers to ongoing monthly video.">
+  <Section>
+    <SectionHeader level={1} size="hero" label="About" title="A motion studio for products that need to be understood." />
+  </Section>
+
+  <Section tightTop>
+    <div class="story-row">
+      <h2 class="display title">The studio</h2>
+      <div class="stack gap-lg">
+        <p class="body-lg primary">Traciq Motion makes video for SaaS and AI teams. We start with the product, find the moment that makes it click, and build the film around it.</p>
+        <p class="body-lg">We work with growing product brands on launches, explainers, and ongoing monthly video, from our base in Karachi to teams around the world.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="surface">
+    <div class="stack gap-2xl">
+      <SectionHeader label="How we work" title="Three things we hold to." />
+      <div class="cols cols-3">
+        {principles.map(([t, d]) => (
+          <div class="stack gap-sm"><h3 class="display title">{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand bg="page" title="Tell us about your launch." />
+</BaseLayout>

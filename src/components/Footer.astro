@@ -1,0 +1,11 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="/" aria-label="Traciq Motion, home"><img src="/logo-horizontal-dark.svg" alt="Traciq Motion" width="126" height="43" /></a>
+    <p class="small">© {year} Traciq Motion</p>
+    <a class="small" href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+</footer>

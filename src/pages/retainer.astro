@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+
+const included = [
+  ['Monthly videos', 'A set number of videos each month, agreed up front.'],
+  ['Ad cuts and formats', 'Short cuts and vertical versions made from the main video.'],
+  ['Localized versions', 'Voiceover and text versions for different regions.'],
+];
+const rhythm = [
+  ['Plan the month', 'Agree what ships and when, tied to your release schedule.'],
+  ['Draft and review', 'Storyboards and first drafts arrive early, so feedback lands early.'],
+  ['Deliver and repeat', 'Final files in every format you need, then the next cycle begins.'],
+];
+---
+<BaseLayout title="Retainer" description="Monthly video for product teams: launches, feature updates, and ad cuts from one team that knows your product.">
+  <Section>
+    <SectionHeader level={1} size="hero" label="Retainer" title="Video every month, not once." sub="Keep your product story fresh with a steady stream of launches, feature updates, and ad cuts." />
+  </Section>
+
+  <Section>
+    <div class="stack gap-2xl">
+      <SectionHeader label="What it includes" title="One team, every release." />
+      <div class="cols cols-3">
+        {included.map(([t, d]) => (
+          <div class="stack gap-sm"><h3 class="display title">{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="brand">
+    <div class="stack gap-2xl">
+      <SectionHeader label="How it runs" title="A simple monthly rhythm." />
+      <div class="cols cols-3">
+        {rhythm.map(([t, d], i) => (
+          <div class="stack gap-sm">
+            <p class="step-num">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="display title">{t}</h3>
+            <p>{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="stack center gap-lg">
+      <h2 class="display headline">Scoped to your product.</h2>
+      <p class="body-lg narrow">Retainers are shaped around your release schedule and the formats you need. Book a call and we’ll put one together.</p>
+      <Button href="/contact#book" variant="spark">Talk about a retainer</Button>
+    </div>
+  </Section>
+</BaseLayout>

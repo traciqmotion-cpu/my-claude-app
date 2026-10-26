@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const services = [
+  ['Launch films', 'A short, confident film for a product or feature launch.', ['Script and storyboard', 'Voiceover and sound design', '16:9 and 9:16 cuts for ads and social']],
+  ['Explainers and demos', 'A clear walkthrough that makes a complex product easy to understand.', ['A story built around your real screens', 'Storyboard and first draft shared early', 'Voiceover in the accent you choose']],
+  ['UI animation', 'Your interface in motion, built from your real screens.', ['Clean frames made from your UI', 'Smooth zooms that stay sharp', 'Short cuts for the site and for ads']],
+  ['Monthly video', 'A steady stream of launches, feature updates, and ad cuts.', ['Delivery on a monthly rhythm', 'Localized versions where you need them', 'One team that knows your product']],
+];
+const steps = [
+  ['Script', 'We shape the story and the voiceover.'],
+  ['Storyboard', 'You see every scene before animation starts.'],
+  ['Animation', 'A first draft is shared early, so feedback lands early.'],
+  ['Sound', 'Music, sound design, and voiceover.'],
+  ['Delivery', 'Final files in 16:9, 9:16, and more.'],
+];
+const faq = [
+  ['How long does a video take?', 'Most videos take 12 to 15 days from kickoff to final delivery.'],
+  ['What do you need from us?', 'A screen recording or UI frames, your brand assets, and a short brief. We write the script if you don’t have one.'],
+  ['How do revisions work?', 'You see the storyboard and a first draft before the final, so changes happen early.'],
+  ['Can you localize videos?', 'Yes, including voiceover versions for different regions, in 16:9 and 9:16.'],
+];
+---
+<BaseLayout title="Services" description="Launch films, explainers and demos, UI animation, and monthly video for SaaS and AI teams.">
+  <Section>
+    <SectionHeader level={1} size="hero" label="Services" title="What we make." sub="Video for SaaS and AI teams, from a single launch to a monthly rhythm." />
+  </Section>
+
+  {services.map(([title, desc, bullets], i) => (
+    <Section bg={i % 2 === 1 ? 'surface' : 'page'}>
+      <div class="service">
+        <div class="stack gap-md">
+          <p class="step-num">{String(i + 1).padStart(2, '0')}</p>
+          <h2 class="display headline">{title}</h2>
+          <p class="body-lg">{desc}</p>
+        </div>
+        <div class="stack gap-md">
+          <p class="label">What you get</p>
+          <ul class="bullets">{(bullets as string[]).map((b) => <li>{b}</li>)}</ul>
+        </div>
+      </div>
+    </Section>
+  ))}
+
+  <Section>
+    <div class="stack gap-2xl">
+      <SectionHeader label="How it works" title="From script to final cut." />
+      <div class="cols cols-5">
+        {steps.map(([t, d], i) => (
+          <div class="stack gap-sm">
+            <p class="step-num">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="display title">{t}</h3>
+            <p class="small">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="surface">
+    <div class="stack gap-2xl">
+      <SectionHeader label="FAQ" title="Questions, answered." />
+      <div class="cols cols-2 wide-gap">
+        {faq.map(([q, a]) => (
+          <div class="stack gap-sm">
+            <h3 class="display title">{q}</h3>
+            <p>{a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand bg="page" title="Ready to make it click?" />
+</BaseLayout>

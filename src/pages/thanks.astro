@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Thank you" noindex>
+  <Section>
+    <div class="stack gap-lg">
+      <p class="label">Message sent</p>
+      <h1 class="display hero">Thank you.</h1>
+      <p class="body-lg narrow">We’ve got your brief and will reply within a day.</p>
+      <div><Button href="/work/">See the work</Button></div>
+    </div>
+  </Section>
+</BaseLayout>
