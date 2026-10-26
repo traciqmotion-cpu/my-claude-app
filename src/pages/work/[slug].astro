@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+const i = projects.findIndex((p) => p.slug === project.slug);
+const next = projects[(i + 1) % projects.length];
+const story = [
+  ['The brief', project.brief],
+  ['The approach', project.approach],
+  ['The outcome', project.outcome],
+].filter(([, text]) => text);
+---
+<BaseLayout title={project.title} description={`${project.title}: ${project.desc}`}>
+  <Section>
+    <div class="stack gap-md">
+      <p class="label"><a href="/work/" style="text-decoration:none">Work</a> / {project.title}</p>
+      <h1 class="display hero">{project.title}</h1>
+      <p class="body-lg">{project.tag}</p>
+    </div>
+  </Section>
+
+  <Section tightTop>
+    <div class="stack gap-2xl">
+      <div class="stack gap-xl">
+        {project.videos.map((v) => (
+          <div class="stack gap-sm">
+            {v.label && <p class="label">{v.label}</p>}
+            <div class="player">
+              <video controls playsinline preload="none" poster={`/media/${v.file}-poster.jpg`} aria-label={`${project.title}${v.label ? ', ' + v.label : ''}`}>
+                <source src={`/media/${v.file}.mp4`} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="meta">
+        <div><p class="label">Client</p><p>{project.client}</p></div>
+        <div><p class="label">Service</p><p>{project.service}</p></div>
+        <div><p class="label">Format</p><p>16:9</p></div>
+      </div>
+    </div>
+  </Section>
+
+  {story.length > 0 && (
+    <Section tightTop>
+      <div class="stack gap-3xl">
+        {story.map(([label, text]) => (
+          <div class="story-row">
+            <h2 class="display title">{label}</h2>
+            <p class="body-lg">{text}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+  )}
+
+  <Section bg="surface">
+    <div class="stack gap-xl">
+      <p class="label">Next project</p>
+      <div class="grid-work"><WorkCard project={next} /></div>
+    </div>
+  </Section>
+
+  <CtaBand bg="page" title="Want something like this?" sub="Book a call and tell us what you’re launching." />
+</BaseLayout>

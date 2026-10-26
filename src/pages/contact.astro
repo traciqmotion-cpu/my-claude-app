@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { site } from '../data/site';
+const booking = `${site.calendly}?hide_gdpr_banner=1&background_color=1c1c22&text_color=f3f5f4&primary_color=1fc8b4`;
+---
+<BaseLayout title="Contact" description="Book a call or send a short brief. We reply within a day.">
+  <Section>
+    <SectionHeader level={1} size="hero" label="Contact" title="Let’s make it click." sub="Book a call, or send a short brief and we’ll reply." />
+  </Section>
+
+  <Section tightTop>
+    <div class="cols cols-2">
+      <div class="panel" id="book">
+        <h2 class="display title">Book a call</h2>
+        <p>Pick a time that works for you. Twenty minutes is plenty.</p>
+        <div class="calendly-inline-widget" data-url={booking}></div>
+        <p class="small">Calendar not loading? <a class="primary" href={site.calendly} target="_blank" rel="noopener noreferrer">Open the booking page</a>.</p>
+        <script is:inline async src="https://assets.calendly.com/assets/external/widget.js"></script>
+      </div>
+
+      <form class="panel" name="brief" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field">
+        <h2 class="display title">Or send a brief</h2>
+        <input type="hidden" name="form-name" value="brief" />
+        <p class="visually-hidden"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="field"><label class="label" for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name" /></div>
+        <div class="field"><label class="label" for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" /></div>
+        <div class="field"><label class="label" for="f-brief">What are you launching?</label><textarea id="f-brief" name="brief" required placeholder="A sentence or two is plenty"></textarea></div>
+        <div><button class="btn btn-primary" type="submit">Send</button></div>
+      </form>
+    </div>
+  </Section>
+
+  <Section bg="surface">
+    <div class="stack gap-md">
+      <p class="label">Direct</p>
+      <p class="display title"><a href={`mailto:${site.email}`} style="text-decoration:none">{site.email}</a></p>
+      {site.linkedin && <p><a href={site.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn: Traciq Motion</a></p>}
+    </div>
+  </Section>
+</BaseLayout>

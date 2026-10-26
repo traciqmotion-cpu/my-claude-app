@@ -1,0 +1,13 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+interface Props { title: string; sub?: string; label?: string; href?: string; variant?: 'primary' | 'spark'; bg?: 'page' | 'surface' }
+const { title, sub, label = 'Book a call', href = '/contact#book', variant = 'primary', bg = 'surface' } = Astro.props;
+---
+<Section bg={bg}>
+  <div class="stack center gap-lg">
+    <h2 class="display headline">{title}</h2>
+    {sub && <p class="body-lg">{sub}</p>}
+    <Button href={href} variant={variant}>{label}</Button>
+  </div>
+</Section>

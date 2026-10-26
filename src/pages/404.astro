@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Page not found" noindex>
+  <Section>
+    <div class="stack gap-lg">
+      <p class="label">404</p>
+      <h1 class="display hero">That page moved.</h1>
+      <p class="body-lg narrow">The page you’re looking for isn’t here. Head back home or see the work.</p>
+      <div class="actions"><Button href="/">Home</Button><Button href="/work/" variant="outline">See the work</Button></div>
+    </div>
+  </Section>
+</BaseLayout>

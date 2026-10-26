@@ -1,0 +1,21 @@
+---
+import { site } from '../data/site';
+const t = site.trustpilot;
+const on = t.enabled && t.businessUnitId && t.templateId;
+---
+{on && (
+  <div>
+    <div
+      class="trustpilot-widget"
+      data-locale="en-US"
+      data-template-id={t.templateId}
+      data-businessunit-id={t.businessUnitId}
+      data-style-height={t.height}
+      data-style-width="100%"
+      data-theme={t.theme}
+    >
+      <a href={t.reviewUrl} target="_blank" rel="noopener noreferrer">Trustpilot</a>
+    </div>
+    <script is:inline async src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"></script>
+  </div>
+)}

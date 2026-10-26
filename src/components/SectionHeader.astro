@@ -1,0 +1,10 @@
+---
+interface Props { label: string; title: string; level?: 1 | 2; size?: 'hero' | 'headline'; sub?: string }
+const { label, title, level = 2, size = 'headline', sub } = Astro.props;
+const Tag = level === 1 ? 'h1' : 'h2';
+---
+<div class="stack gap-md">
+  <p class="label">{label}</p>
+  <Tag class={`display ${size}`}>{title}</Tag>
+  {sub && <p class="body-lg narrow">{sub}</p>}
+</div>

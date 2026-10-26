@@ -1,0 +1,45 @@
+---
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links: [string, string][] = [
+  ['Work', '/work'],
+  ['Services', '/services'],
+  ['Retainer', '/retainer'],
+  ['About', '/about'],
+  ['Contact', '/contact'],
+];
+const active = (href: string) => path === href || path.startsWith(href + '/');
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="Traciq Motion, home">
+      <img src="/logo-horizontal-dark.svg" alt="Traciq Motion" width="189" height="65" />
+    </a>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {links.map(([label, href]) => (
+          <li><a href={href} aria-current={active(href) ? 'page' : undefined}>{label}</a></li>
+        ))}
+        <li class="nav-book"><a href="/contact#book">Book a call</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary header-cta" href="/contact#book">Book a call</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+    </button>
+  </div>
+</header>
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const nav = document.getElementById('site-nav');
+  btn?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open') ?? false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  nav?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      nav.classList.remove('open');
+      btn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

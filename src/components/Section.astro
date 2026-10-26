@@ -1,0 +1,8 @@
+---
+interface Props { bg?: 'page' | 'surface' | 'brand'; id?: string; class?: string; tightTop?: boolean }
+const { bg = 'page', id, class: cls = '', tightTop = false } = Astro.props;
+const bgClass = bg === 'surface' ? 'bg-surface' : bg === 'brand' ? 'bg-brand' : '';
+---
+<section id={id} class={`section ${bgClass} ${tightTop ? 'tight-top' : ''} ${cls}`.trim()}>
+  <div class="container"><slot /></div>
+</section>

@@ -1,0 +1,15 @@
+---
+import type { Project } from '../data/projects';
+interface Props { project: Project }
+const { project } = Astro.props;
+---
+<article class="card" data-cats={project.categories.join('|')}>
+  <div class="thumb">
+    <video data-loop muted loop playsinline preload="none" poster={`/media/${project.card}-poster.jpg`} aria-label={`${project.title} preview`}>
+      <source src={`/media/${project.card}-card.mp4`} type="video/mp4" />
+    </video>
+  </div>
+  <p class="label">{project.tag}</p>
+  <h3 class="display title"><a class="card-link" href={`/work/${project.slug}/`}>{project.title}</a></h3>
+  <p class="muted">{project.desc}</p>
+</article>
