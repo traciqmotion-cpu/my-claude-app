@@ -80,7 +80,7 @@
         if (wasStarted && saved) { location.reload(); return; }
       }
       showBanner(false);
-      settings.focus();
+      settings.focus({ preventScroll: true });
     }
 
     settings.addEventListener('click', () => {
