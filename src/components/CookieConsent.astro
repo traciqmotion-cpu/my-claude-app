@@ -1,0 +1,134 @@
+<div class="cookie-preferences">
+  <button id="cookie-settings" type="button" aria-controls="cookie-banner" aria-expanded="false" hidden>Cookie settings</button>
+</div>
+<section id="cookie-banner" class="cookie-banner" aria-labelledby="cookie-title" hidden>
+  <h2 id="cookie-title">Your privacy matters.</h2>
+  <p>We use optional advertising cookies from Meta to measure our campaigns and understand how visitors discover Traciq Motion. You can accept or decline these cookies and change your choice at any time.</p>
+  <div class="cookie-actions">
+    <button id="cookie-decline" type="button">Decline</button>
+    <button id="cookie-accept" type="button">Accept</button>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const key = 'traciq-ad-consent-v1';
+    const banner = document.getElementById('cookie-banner');
+    const settings = document.getElementById('cookie-settings');
+    const decline = document.getElementById('cookie-decline');
+    const accept = document.getElementById('cookie-accept');
+    const maxAge = 180 * 24 * 60 * 60 * 1000;
+    let pixelStarted = false;
+    let choice = null;
+    const gpc = navigator.globalPrivacyControl === true;
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      if (saved && ['accepted', 'declined'].includes(saved.choice) &&
+          Number.isFinite(saved.time) && Date.now() - saved.time < maxAge) {
+        choice = saved.choice;
+      }
+    } catch (_) {}
+
+    function showBanner(show) {
+      banner.hidden = !show;
+      settings.hidden = show;
+      settings.setAttribute('aria-expanded', String(show));
+    }
+
+    function clearPixelCookies() {
+      const domains = ['', location.hostname];
+      if (location.hostname === 'traciqmotion.com' || location.hostname.endsWith('.traciqmotion.com')) {
+        domains.push('traciqmotion.com');
+      }
+      for (const name of ['_fbp', '_fbc']) {
+        for (const domain of new Set(domains)) {
+          document.cookie = name + '=; Max-Age=0; Path=/' + (domain ? '; Domain=' + domain : '');
+        }
+      }
+    }
+
+    function startPixel() {
+      if (pixelStarted || gpc || choice !== 'accepted') return;
+      pixelStarted = true;
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('consent', 'grant');
+      window.fbq('init', '4443594915905832');
+      window.fbq('track', 'PageView');
+    }
+
+    function saveChoice(next) {
+      const wasStarted = pixelStarted;
+      choice = gpc ? 'declined' : next;
+      let saved = false;
+      try {
+        localStorage.setItem(key, JSON.stringify({ choice, time: Date.now() }));
+        saved = true;
+      } catch (_) {}
+      if (choice === 'accepted') {
+        startPixel();
+      } else {
+        if (wasStarted && typeof window.fbq === 'function') window.fbq('consent', 'revoke');
+        clearPixelCookies();
+        if (wasStarted && saved) { location.reload(); return; }
+      }
+      showBanner(false);
+      settings.focus();
+    }
+
+    settings.addEventListener('click', () => {
+      showBanner(true);
+      decline.focus();
+    });
+    decline.addEventListener('click', () => saveChoice('declined'));
+    accept.addEventListener('click', () => saveChoice('accepted'));
+
+    if (gpc) {
+      choice = 'declined';
+      clearPixelCookies();
+      accept.disabled = true;
+      accept.title = 'Your browser privacy preference is enabled.';
+      banner.querySelector('p').textContent += ' Your browser privacy preference is enabled, so advertising cookies are off.';
+    }
+    if (choice === 'accepted') startPixel();
+    else clearPixelCookies();
+    showBanner(choice === null);
+  })();
+</script>
+
+<style>
+  .cookie-banner[hidden], #cookie-settings[hidden] { display: none; }
+  .cookie-preferences { padding: 0 var(--pad-x, 24px) 24px; text-align: center; }
+  #cookie-settings {
+    color: var(--brand-mist, #c8ccd6); background: transparent; border: 0;
+    font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer;
+    min-height: 44px;
+  }
+  .cookie-banner {
+    position: fixed; z-index: 1000; bottom: 20px; right: 20px;
+    width: min(400px, calc(100% - 40px)); padding: 22px;
+    background: var(--brand-graphite, #1c1c22); color: var(--brand-paper, #f3f5f4);
+    border: 1px solid #404048; border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  }
+  .cookie-banner h2 { font: 800 23px/1.2 var(--font-display, sans-serif); margin: 0 0 10px; }
+  .cookie-banner p { font-size: 14px; line-height: 1.6; color: var(--brand-mist, #c8ccd6); }
+  .cookie-actions { display: flex; gap: 10px; margin-top: 18px; }
+  .cookie-actions button {
+    flex: 1; min-height: 44px; border-radius: 999px; border: 1px solid var(--brand-teal, #1fc8b4);
+    background: transparent; color: var(--brand-paper, #f3f5f4);
+    font: 600 14px/1.3 var(--font-body, sans-serif); cursor: pointer; padding: 10px;
+  }
+  #cookie-accept { background: var(--brand-teal, #1fc8b4); color: var(--brand-ink, #0a0a12); }
+  #cookie-accept:disabled { opacity: .5; cursor: not-allowed; }
+  @media (max-width: 480px) {
+    .cookie-banner { bottom: 12px; right: 12px; width: calc(100% - 24px); padding: 18px; }
+  }
+</style>
