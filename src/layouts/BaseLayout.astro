@@ -5,6 +5,7 @@ import '@fontsource/manrope/600.css';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { site } from '../data/site';
 
 interface Props { title: string; description?: string; noindex?: boolean }
@@ -40,6 +41,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <Nav />
     <main id="main"><slot /></main>
     <Footer />
+<CookieConsent />
     <script>
       // Loops play only while on screen, and not at all if the visitor prefers reduced motion.
       const loops = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-loop]'));
