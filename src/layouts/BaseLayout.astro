@@ -57,6 +57,17 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
         );
         loops.forEach((v) => io.observe(v));
       }
+
+      // Browsers block sound until the visitor interacts, so videos marked
+      // data-sound start muted and get their sound on the first click, tap or key press.
+      const sound = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-sound]'));
+      if (sound.length) {
+        const unmute = () => {
+          sound.forEach((v) => { v.muted = false; });
+          ['pointerdown', 'keydown'].forEach((t) => window.removeEventListener(t, unmute));
+        };
+        ['pointerdown', 'keydown'].forEach((t) => window.addEventListener(t, unmute));
+      }
     </script>
   </body>
 </html>
